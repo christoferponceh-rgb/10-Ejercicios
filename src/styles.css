@@ -1,52 +1,11 @@
-/* Basic styles for the exercises app */
+/* Aesthetic improvements: cards, shadows, spacing */
 
 :root{
-  --bg:#f6f8fb;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --accent:#2563eb;
-  --gap:12px;
-  --success:#10b981;
+  --card-radius:14px;
+  --shadow: 0 6px 18px rgba(11,17,32,0.06);
 }
 
-[data-theme="dark"]{
-  --bg:#0f1724;
-  --card:#0b1220;
-  --muted:#9ca3af;
-  --accent:#60a5fa;
-  --success:#34d399;
-  color:#e6eef8;
-}
-
-[data-theme="colorful"]{
-  --bg:linear-gradient(90deg,#fef3c7,#fee2e2);
-  --card:#ffffff;
-  --muted:#6b7280;
-  --accent:#ef4444;
-}
-
-*{box-sizing:border-box}
-body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:inherit}
-.app{max-width:980px; margin:28px auto; padding:18px}
-.header h1{margin:0;font-size:20px}
-.subtitle{margin:6px 0 18px;color:var(--muted)}
-.nav{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.nav button{padding:8px 10px;border-radius:8px;border:1px solid #e6e9ef;background:var(--card);cursor:pointer}
-.nav .buttons{display:flex;gap:8px;flex-wrap:wrap}
-button.active{background:var(--accent);color:#fff;border-color:transparent}
-.main{margin-top:18px;padding:18px;background:var(--card);border-radius:12px;border:1px solid #e6e9ef}
-.home p{margin:6px 0}
-.exercise{padding:12px}
-.exercise h2{margin-top:0}
-.footer{margin-top:12px;text-align:center;color:var(--muted)}
-.small-muted{color:var(--muted);font-size:13px}
-
-/* Controls */
-.control-row{display:flex;gap:8px;align-items:center;margin-top:8px}
-.input{padding:8px;border-radius:8px;border:1px solid #e6e9ef;background:transparent}
-.btn{padding:8px 10px;border-radius:8px;border:1px solid #e6e9ef;background:var(--card);cursor:pointer}
+.exercise{padding:18px;border-radius:var(--card-radius);box-shadow:var(--shadow);background:var(--card)}
+.input{width:100%;padding:10px;border-radius:10px;border:1px solid #e6e9ef;background:transparent}
+.btn{padding:8px 12px;border-radius:10px;border:1px solid #e6e9ef;background:var(--card);cursor:pointer}
 .btn.primary{background:var(--accent);color:#fff;border-color:transparent}
-.btn.danger{background:#fee2e2;border-color:#fecaca;color:#7f1d1d}
-
-/* Responsive */
-@media (max-width:640px){.app{padding:12px}.nav{gap:8px}}

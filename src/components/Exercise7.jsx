@@ -1,10 +1,43 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Exercise7(){
+const MOVIES = [
+  { id:1, title: 'El viaje', year: 2020 },
+  { id:2, title: 'La búsqueda', year: 2018 },
+  { id:3, title: 'Noche de estrellas', year: 2021 },
+  { id:4, title: 'Café y cine', year: 2019 },
+]
+
+export default function Exercise7({ markCompleted, unmarkCompleted }){
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState([])
+
+  function search(){
+    const q = query.trim().toLowerCase()
+    if(!q){ setResults([]); return }
+    setResults(MOVIES.filter(m => m.title.toLowerCase().includes(q)))
+  }
+
+  function toggleComplete(){
+    const done = !!JSON.parse(localStorage.getItem('exercise7_done'))
+    if(!done){ localStorage.setItem('exercise7_done', JSON.stringify(true)); markCompleted(7) }
+    else { localStorage.setItem('exercise7_done', JSON.stringify(false)); unmarkCompleted(7) }
+  }
+
+  useEffect(()=>{ try{ if(JSON.parse(localStorage.getItem('exercise7_done'))) markCompleted(7) }catch{} }, [])
+
   return (
     <div className="exercise">
-      <h2>7. Buscador de Películas</h2>
-      <p>Placeholder: filtro de una lista de películas según el texto que el usuario escriba.</p>
+      <h2>7. Buscador de Películas (simulado)</h2>
+      <div style={{display:'flex',gap:8}}>
+        <input className="input" value={query} onChange={e=>setQuery(e.target.value)} placeholder="Buscar título" />
+        <button className="btn primary" onClick={search}>Buscar</button>
+      </div>
+
+      <ul style={{marginTop:12}}>
+        {results.map(r => <li key={r.id}>{r.title} <span className="small-muted">({r.year})</span></li>)}
+      </ul>
+
+      <div className="control-row"><button className="btn" onClick={toggleComplete}>Marcar/Desmarcar completado</button></div>
     </div>
   )
 }

@@ -5,36 +5,35 @@ export default function Exercise10({ markCompleted, unmarkCompleted }){
 
   useEffect(() => {
     localStorage.setItem('theme', theme)
-    // Solución 1: Usar body o el selector correcto (.App / #root)
+    // Aplicar el atributo al body para que los estilos reaccionen al tema
     document.body.setAttribute('data-theme', theme)
   }, [theme])
 
   function toggleComplete(){
-    // Solución 3: Lectura segura para evitar crashes
-    let done = false;
+    // Lectura segura para evitar crashes si el valor en localStorage está mal formado
+    let done = false
     try {
       done = !!JSON.parse(localStorage.getItem('exercise10_done'))
     } catch {
-      done = false;
+      done = false
     }
-    
-    // Solución 2: Verifica si el padre requiere el ID (10) o el índice (9)
-    if(!done){ 
-      localStorage.setItem('exercise10_done', JSON.stringify(true)); 
-      markCompleted(10) // <-- Cambiar a 9 si el padre usa índices de array
-    } else { 
-      localStorage.setItem('exercise10_done', JSON.stringify(false)); 
-      unmarkCompleted(10) // <-- Cambiar a 9 si el padre usa índices de array
+
+    if(!done){
+      localStorage.setItem('exercise10_done', JSON.stringify(true))
+      markCompleted(10)
+    } else {
+      localStorage.setItem('exercise10_done', JSON.stringify(false))
+      unmarkCompleted(10)
     }
   }
 
-  useEffect(() => { 
-    try { 
+  useEffect(() => {
+    try {
       if(JSON.parse(localStorage.getItem('exercise10_done'))) {
-        markCompleted(10) // <-- Cambiar a 9 si aplica
+        markCompleted(10)
       }
-    } catch {} 
-  }, [markCompleted]) // Solución 4: Añadida la dependencia faltante
+    } catch {}
+  }, [markCompleted])
 
   return (
     <div className="exercise">
@@ -47,10 +46,6 @@ export default function Exercise10({ markCompleted, unmarkCompleted }){
         <label style={{display:'flex',gap:6,alignItems:'center',cursor:'pointer'}}>
           <input type="radio" name="theme" checked={theme==='dark'} onChange={()=>setTheme('dark')} />
           Dark
-        </label>
-        <label style={{display:'flex',gap:6,alignItems:'center',cursor:'pointer'}}>
-          <input type="radio" name="theme" checked={theme==='colorful'} onChange={()=>setTheme('colorful')} />
-          Colorful
         </label>
       </div>
       <div style={{marginTop:12}} className="small-muted">Tema actual: {theme}</div>

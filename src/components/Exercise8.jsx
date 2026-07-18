@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const SUBJECTS = ['El gato', 'Mi amigo', 'La universidad', 'Un programador']
 const VERBS = ['come', 'escribe', 'salta sobre', 'descubre']
@@ -6,6 +6,10 @@ const OBJECTS = ['un donut', 'el teclado', 'la solución', 'una frase']
 
 export default function Exercise8({ markCompleted, unmarkCompleted }){
   const [phrase, setPhrase] = useState('')
+
+  useEffect(() => {
+    generate()
+  }, [])
 
   function generate(){
     const a = SUBJECTS[Math.floor(Math.random()*SUBJECTS.length)]

@@ -5,6 +5,16 @@ const MOVIES = [
   { id:2, title: 'La búsqueda', year: 2018 },
   { id:3, title: 'Noche de estrellas', year: 2021 },
   { id:4, title: 'Café y cine', year: 2019 },
+  { id:5, title: 'Código secreto', year: 2022 },
+  { id:6, title: 'La última frontera', year: 2020 },
+  { id:7, title: 'Aventura en la montaña', year: 2019 },
+  { id:8, title: 'Sueños de papel', year: 2021 },
+  { id:9, title: 'Espejo reflejado', year: 2023 },
+  { id:10, title: 'El resurgimiento', year: 2022 },
+  { id:11, title: 'Viaje sin retorno', year: 2021 },
+  { id:12, title: 'Conversaciones nocturnas', year: 2020 },
+  { id:13, title: 'La ciudad dormida', year: 2019 },
+  { id:14, title: 'Historias entrelazadas', year: 2022 },
 ]
 
 export default function Exercise7({ markCompleted, unmarkCompleted }){

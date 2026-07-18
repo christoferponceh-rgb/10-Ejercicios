@@ -3,20 +3,38 @@ import React, { useState, useEffect } from 'react'
 export default function Exercise10({ markCompleted, unmarkCompleted }){
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem('theme', theme)
-    // update app root's data-theme so App reflects change immediately
-    const root = document.querySelector('.app')
-    if(root) root.setAttribute('data-theme', theme)
+    // Solución 1: Usar body o el selector correcto (.App / #root)
+    document.body.setAttribute('data-theme', theme)
   }, [theme])
 
   function toggleComplete(){
-    const done = !!JSON.parse(localStorage.getItem('exercise10_done'))
-    if(!done){ localStorage.setItem('exercise10_done', JSON.stringify(true)); markCompleted(10) }
-    else { localStorage.setItem('exercise10_done', JSON.stringify(false)); unmarkCompleted(10) }
+    // Solución 3: Lectura segura para evitar crashes
+    let done = false;
+    try {
+      done = !!JSON.parse(localStorage.getItem('exercise10_done'))
+    } catch {
+      done = false;
+    }
+    
+    // Solución 2: Verifica si el padre requiere el ID (10) o el índice (9)
+    if(!done){ 
+      localStorage.setItem('exercise10_done', JSON.stringify(true)); 
+      markCompleted(10) // <-- Cambiar a 9 si el padre usa índices de array
+    } else { 
+      localStorage.setItem('exercise10_done', JSON.stringify(false)); 
+      unmarkCompleted(10) // <-- Cambiar a 9 si el padre usa índices de array
+    }
   }
 
-  useEffect(()=>{ try{ if(JSON.parse(localStorage.getItem('exercise10_done'))) markCompleted(10) }catch{} }, [])
+  useEffect(() => { 
+    try { 
+      if(JSON.parse(localStorage.getItem('exercise10_done'))) {
+        markCompleted(10) // <-- Cambiar a 9 si aplica
+      }
+    } catch {} 
+  }, [markCompleted]) // Solución 4: Añadida la dependencia faltante
 
   return (
     <div className="exercise">
@@ -36,7 +54,9 @@ export default function Exercise10({ markCompleted, unmarkCompleted }){
         </label>
       </div>
       <div style={{marginTop:12}} className="small-muted">Tema actual: {theme}</div>
-      <div className="control-row"><button className="btn" onClick={toggleComplete}>Marcar/Desmarcar completado</button></div>
+      <div className="control-row">
+        <button className="btn" onClick={toggleComplete}>Marcar/Desmarcar completado</button>
+      </div>
     </div>
   )
 }

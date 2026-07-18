@@ -11,19 +11,18 @@ const MOVIES = [
   { id:8, title: 'Sueños de papel', year: 2021 },
   { id:9, title: 'Espejo reflejado', year: 2023 },
   { id:10, title: 'El resurgimiento', year: 2022 },
-  { id:11, title: 'Viaje sin retorno', year: 2021 },
-  { id:12, title: 'Conversaciones nocturnas', year: 2020 },
-  { id:13, title: 'La ciudad dormida', year: 2019 },
-  { id:14, title: 'Historias entrelazadas', year: 2022 },
 ]
 
 export default function Exercise7({ markCompleted, unmarkCompleted }){
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState(MOVIES.slice(0, 10))
 
   function search(){
     const q = query.trim().toLowerCase()
-    if(!q){ setResults([]); return }
+    if(!q){ 
+      setResults(MOVIES.slice(0, 10))
+      return 
+    }
     setResults(MOVIES.filter(m => m.title.toLowerCase().includes(q)))
   }
 
